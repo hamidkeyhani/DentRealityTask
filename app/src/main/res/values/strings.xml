@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">DentTask</string>
+    <string name="mapbox_access_token">pk.eyJ1IjoiY291dCIsImEiOiJjbDVsN3B6N2kwaDd6M2pvNDI1bmI4N3gxIn0.OnUKMgozGDGa961B_M2TTw</string>
 </resources>

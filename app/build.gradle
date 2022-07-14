@@ -9,7 +9,7 @@ android {
     compileSdk 33
 
     defaultConfig {
-        applicationId "money.base.denttask"
+        applicationId "com.dent.denttask"
         minSdk 21
         targetSdk 33
         versionCode 1
@@ -68,6 +68,9 @@ dependencies {
     implementation "com.google.dagger:hilt-android:$hiltVersion"
     kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
     kapt "androidx.hilt:hilt-compiler:$hiltCompilerVersion"
+
+    // mapbox
+    implementation "com.mapbox.maps:android:$mapBoxVersion"
 
     // Local unit tests
     testImplementation "androidx.test:core:$androidxTestCoreVersion"
