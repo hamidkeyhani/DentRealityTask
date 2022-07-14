@@ -1,0 +1,82 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+}
+
+android {
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "money.base.denttask"
+        minSdk 21
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    signingConfigs {
+        release {
+            def tmpFilePath = System.getProperty("user.home") + "/work/_temp/keystore/"
+            def allFilesFromDir = new File(tmpFilePath).listFiles()
+
+            if (allFilesFromDir != null) {
+                def keystoreFile = allFilesFromDir.first()
+                keystoreFile.renameTo("dent.jks")
+            }
+
+            storeFile = file("dent.jks")
+            storePassword System.getenv("SIGNING_STORE_PASSWORD")
+            keyAlias System.getenv("SIGNING_KEY_ALIAS")
+            keyPassword System.getenv("SIGNING_KEY_PASSWORD")
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+
+    implementation "androidx.core:core-ktx:$coreVersion"
+    implementation "androidx.appcompat:appcompat:$appCompatVersion"
+    implementation "com.google.android.material:material:$materialVersion"
+    implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
+    implementation "androidx.activity:activity-ktx:$activityVersion"
+
+    // Gson
+    implementation "com.google.code.gson:gson:$gsonVersion"
+
+    // Dagger - Hilt
+    implementation "com.google.dagger:hilt-android:$hiltVersion"
+    kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
+    kapt "androidx.hilt:hilt-compiler:$hiltCompilerVersion"
+
+    // Local unit tests
+    testImplementation "androidx.test:core:$androidxTestCoreVersion"
+    testImplementation "junit:junit:$jUnitVersion"
+    testImplementation "androidx.arch.core:core-testing:$archCoreTestingVersion"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesTestVersion"
+    testImplementation "com.google.truth:truth:$truthVersion"
+    testImplementation "app.cash.turbine:turbine:$turbineVersion"
+
+    // Debug
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakVersion"
+}
